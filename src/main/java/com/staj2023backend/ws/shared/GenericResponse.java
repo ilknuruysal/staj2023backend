@@ -1,4 +1,4 @@
-package com.hoaxify.ws.shared;
+package com.staj2023backend.ws.shared;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

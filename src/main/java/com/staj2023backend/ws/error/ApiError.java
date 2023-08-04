@@ -1,4 +1,4 @@
-package com.hoaxify.ws.error;
+package com.staj2023backend.ws.error;
 
 import lombok.Data;
 

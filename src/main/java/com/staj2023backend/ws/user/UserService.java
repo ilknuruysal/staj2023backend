@@ -1,4 +1,4 @@
-package com.hoaxify.ws.user;
+package com.staj2023backend.ws.user;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

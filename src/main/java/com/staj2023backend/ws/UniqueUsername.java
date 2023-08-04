@@ -1,4 +1,4 @@
-package com.hoaxify.ws;
+package com.staj2023backend.ws;
 
 import jakarta.validation.Constraint;
 
