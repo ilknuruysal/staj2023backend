@@ -5,6 +5,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>staj</module>
+		<module>yarenProject</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
