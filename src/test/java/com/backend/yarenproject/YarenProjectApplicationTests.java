@@ -1,13 +1,13 @@
-package com.staj2023backend.ws;
+package com.backend.yarenproject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WsApplicationTests {
+class YarenProjectApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
