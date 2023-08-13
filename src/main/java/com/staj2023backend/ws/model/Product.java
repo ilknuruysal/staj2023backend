@@ -1,38 +1,49 @@
 package com.staj2023backend.ws.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.Data;
+
 import java.math.BigDecimal;
 
+@Data
+@Entity
 public class Product {
-    private final String id;
-    private final String description;
-    private final BigDecimal price;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String productName;
+    private BigDecimal productPrice;
+    private String productColor;
+    private Long productStock;
 
-    public Product(final String id,
-                   final String description,
-                   final BigDecimal price){
+    public Product(Long id,
+                   String productName,
+                   BigDecimal productPrice,
+                   String productColor,
+                   Long productStock){
         this.id = id;
-        this.description = description;
-        this.price = price;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productColor = productColor;
+        this.productStock = productStock;
+    }
+
+    public Product() {
+
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "id='" + id + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", productPrice=" + productPrice +
+                ", productColor='" + productColor + '\'' +
+                ", productStock=" + productStock +
                 '}';
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
 }
