@@ -2,6 +2,7 @@ package com.staj2023backend.ws.controller;
 
 import com.staj2023backend.ws.controller.model.ProductID;
 import com.staj2023backend.ws.model.Product;
+import com.staj2023backend.ws.model.ProductRepository;
 import com.staj2023backend.ws.model.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.List;
 import java.util.UUID;
 import com.staj2023backend.ws.shared.GenericResponse;
@@ -20,6 +22,18 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+
+    private final ProductRepository productRepository;
+
+    @Autowired
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    @GetMapping("/product")
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
 
     @PostMapping("/product")
     public ResponseEntity<ProductID> createProduct(@RequestBody Product product) {
@@ -31,48 +45,48 @@ public class ProductController {
                 .body(result);
     }
 
-    @GetMapping("/product")
-    public List<Product> getAllProducts(){
-        List<Product> result = new ArrayList<>();
-        result.add(new Product(1L,
-                "Ürün1",
-                new BigDecimal("258.33"),
-                "Siyah",
-                26L));
-
-        result.add(new Product(2L,
-                "Ürün2",
-                new BigDecimal("999.11"),
-                "Beyaz",
-                84L));
-
-        result.add(new Product(3L,
-                "Ürün3",
-                new BigDecimal("758.64"),
-                "Mavi",
-                43L));
-
-        return result;
-    }
-
     @GetMapping("/product/{id}")
-    public Product getProductById(@PathVariable final String id){
-        System.out.println(id);
-        return new Product(888L,
-                "Ürün adı değiştirme",
-                new BigDecimal("458.44"),
-                "Yeşil",
-                178L);
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        Optional<Product> product = productRepository.findById(id);
+
+        if (product.isPresent()) {
+            return ResponseEntity.ok(product.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PatchMapping("/product")
-    public void patchProduct(@RequestBody final Product product){
-        System.out.println(product);
+
+    @PatchMapping("/product/{id}")
+    public ResponseEntity<Product> updateProductById(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        Optional<Product> existingProduct = productRepository.findById(id);
+
+        if (existingProduct.isPresent()) {
+            Product productToUpdate = existingProduct.get();
+            productToUpdate.setProductName(updatedProduct.getProductName());
+            productToUpdate.setProductPrice(updatedProduct.getProductPrice());
+            productToUpdate.setProductColor(updatedProduct.getProductColor());
+            productToUpdate.setProductStock(updatedProduct.getProductStock());
+
+            productRepository.save(productToUpdate);
+
+            return ResponseEntity.ok(productToUpdate);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     @DeleteMapping("/product/{id}")
-    public void deleteProduct(@PathVariable final String id) {
-        System.out.println(id);
+    public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
+        Optional<Product> productToDelete = productRepository.findById(id);
+
+        if (productToDelete.isPresent()) {
+            productRepository.delete(productToDelete.get());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
