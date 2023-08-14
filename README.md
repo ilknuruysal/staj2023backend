@@ -6,15 +6,16 @@
 ### H2 Database Kullanımı
 ---
 
-Backend projesi çalıştırıldıktan sonra konsolda çıkan
-
-## `H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:...'`
-
-satırındaki
-## jdbc:h2:mem
-
-ve devamını kopyalayıp
+Backend projesi çalıştırıldıktan sonra
 
 ## [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
 
-web adresindeki **JDBC URL**  kısmına yapıştırılarak çalıştırılır.
+web adresindeki **JDBC URL**  kısmına 
+
+## `jdbc:h2:./devdb`
+
+**user** kısmına
+
+## `SA`
+
+yazılarak çalıştırılır.
