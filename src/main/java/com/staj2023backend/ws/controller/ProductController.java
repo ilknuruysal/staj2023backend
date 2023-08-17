@@ -29,6 +29,7 @@ public class ProductController {
         this.categoryRepository = categoryRepository;
     }
 
+
     @GetMapping("/product")
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -60,6 +61,7 @@ public class ProductController {
     @PostMapping("/category")
     public ResponseEntity<ProductID> createCategory(@RequestBody Category category) {
         System.out.println(category);
+        //change this
         ProductID result = new ProductID(UUID.randomUUID().toString());
         categoryRepository.save(category);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -78,22 +80,11 @@ public class ProductController {
         }
     }
 
+
     @GetMapping("/category")
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
-
-    //Method to list category names
-//    @GetMapping("/product/{productCategoryID}")
-//    public ResponseEntity<Product> getProductCategory(@PathVariable Long productCategoryID) {
-//        Optional<Product> product = productRepository.findById(productCategoryID);
-//
-//        if (productCategoryID) {
-//            return ResponseEntity.ok(product.get().);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
 
     @PatchMapping("/product/{id}")
