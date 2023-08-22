@@ -1,22 +1,21 @@
 package com.backend.yarenproject.userinfo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Service // okunurluğu artırmak için
+@Service // Okunurluğu artırmak için
 public class UserService
 {
     UserRepository userRepository;
-
     PasswordEncoder passwordEncoder;
 
-    // @Autowired --> tek constructor varsa gerek yoktur
-    public UserService(UserRepository userRepository) // constructor injection
+    // @Autowired --> Tek constructor varsa gerek yok
+    public UserService(UserRepository userRepository) // Constructor Injection
     {
         this.userRepository = userRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder(); //dependency injectiona gerek yok
+        this.passwordEncoder = new BCryptPasswordEncoder(); // Dependency Injection a gerek yok
     }
 
     public void save(User user)

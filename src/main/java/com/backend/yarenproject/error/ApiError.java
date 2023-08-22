@@ -1,7 +1,6 @@
 package com.backend.yarenproject.error;
 
 import lombok.Data;
-
 import java.util.Date;
 import java.util.Map;
 
@@ -12,10 +11,9 @@ public class ApiError
     private String errorMessage;
     private String errorPath;
     private long timestamp = new Date().getTime();
+    private Map <String,String> validationErrors; // json obj. old. için getter setter lazım o yüzden @Data kullanılır
 
-    private Map<String,String> validationErrors; // json obj. old. için getter setter lazım o yüzden yukarı Data yazdık
-
-    public ApiError(int errorStatusCode, String errorMessage, String errorPath) // özel bir constructor ekledik
+    public ApiError(int errorStatusCode, String errorMessage, String errorPath) // Özel bir constructor
     {
         this.errorStatusCode = errorStatusCode;
         this.errorMessage = errorMessage;

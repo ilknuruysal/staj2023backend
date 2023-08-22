@@ -1,10 +1,10 @@
 package com.backend.yarenproject.common;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.AllArgsConstructor;
 
 @Data
-@AllArgsConstructor //--> argüman alan constructor oluşturup mesaj alma kısmını kolay yapabiliriz
+@AllArgsConstructor // Argüman alan constructor oluşturup mesaj alma kısmı kolay yapılabilir
 public class GenericResponse
 {
     private String message;
