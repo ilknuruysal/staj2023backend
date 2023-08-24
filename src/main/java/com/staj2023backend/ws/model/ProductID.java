@@ -1,5 +1,5 @@
-package com.staj2023backend.ws.controller.model;
-
+package com.staj2023backend.ws.model;
+//ProductId yi ozel yaptigimiz icin ayri bir class olustur
 public class ProductID {
 
     private final String id;

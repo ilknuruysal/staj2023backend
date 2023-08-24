@@ -7,10 +7,16 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+
+//Lombok kutuphanesi annotationu
 @Data
+//Database'de PRODUCT tablosu oluşturmak için kullanılan annotation
 @Entity
 public class Product {
+//  PRODUCT tablosunun primary key ini id olarak belirlemek için kullanılan annotation
     @Id
+//  id yi sistemin üretip güncellemesi için kullanılan annotation
+//  diger variableler columnlar
     @GeneratedValue
     private Long id;
     private String productName;

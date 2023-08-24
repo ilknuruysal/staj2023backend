@@ -5,11 +5,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+//Lombok kutuphanesi annotationu
 @Data
+//Database'de CATEGORY tablosu oluşturmak için kullanılan annotation
 @Entity
 public class Category {
-
+//  CATEGORY tablosunun primary key ini id olarak belirlemek için kullanılan annotation
     @Id
+//  id yi sistemin üretip güncellemesi için kullanılan annotation
+//  diger variableler columnlar
     @GeneratedValue
     private Long id;
     private String categoryName;

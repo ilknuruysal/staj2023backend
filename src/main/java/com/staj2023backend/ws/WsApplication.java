@@ -1,13 +1,8 @@
 package com.staj2023backend.ws;
 
-import com.staj2023backend.ws.user.UserRepository;
-import com.staj2023backend.ws.user.UserService;
-import com.staj2023backend.ws.user.Users;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class WsApplication {

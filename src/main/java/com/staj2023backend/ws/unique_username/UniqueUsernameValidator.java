@@ -1,15 +1,16 @@
-package com.staj2023backend.ws.user;
+package com.staj2023backend.ws.unique_username;
 
-import jakarta.validation.Constraint;
+import com.staj2023backend.ws.model.Users;
+import com.staj2023backend.ws.repository.UserRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {
-
+//otomatik dependency injection
     @Autowired
-    UserRepository userRepository;
-
+UserRepository userRepository;
+//girilen username kullanılıyorsa isValid false döndürüyor
     @Override
     public boolean isValid(String username, ConstraintValidatorContext context) {
         if(userRepository!=null){

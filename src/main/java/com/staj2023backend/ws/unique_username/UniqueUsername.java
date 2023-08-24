@@ -1,4 +1,4 @@
-package com.staj2023backend.ws.user;
+package com.staj2023backend.ws.unique_username;
 
 
 
@@ -10,7 +10,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
+//Bu annotationlar belirtilen programın sadece fieldlara(variable lara) Runtime süresince ve sadece belirtilen class
+//constraintinde yapılacağını belirtiyor.
 @Target({FIELD})
 @Retention(RUNTIME)
 @Constraint(validatedBy = {UniqueUsernameValidator.class} )
