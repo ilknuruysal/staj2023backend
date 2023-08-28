@@ -30,7 +30,7 @@ public class CategoryController {
     }
 
     // Yeni bir category oluşturan HTTP POST request
-    @PostMapping("/category")
+    @PostMapping("api/category")
     public ResponseEntity<ProductID> createCategory(@RequestBody Category category) {
         System.out.println(category);
         //change this
@@ -44,14 +44,14 @@ public class CategoryController {
 
 
     //Tum categor'leri categoryService uzerinden categoryRepository deki findAll ile listeleme
-    @GetMapping("/category")
+    @GetMapping("api/category")
     public List<Category> getAllCategories() {
         return categoryService.findAll();
     }
 
 
     //Id ile delete request atarak service ve repository üzerinden category silme
-    @DeleteMapping("/category/{id}")
+    @DeleteMapping("api/category/{id}")
     public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id) {
         Optional<Category> categoryToDelete = categoryService.findById(id);
 //Category mevcut ise 200 OK degil ise 404 NOT FOUND

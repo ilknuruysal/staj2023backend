@@ -40,8 +40,6 @@ public class UserServiceTest {
         newUser.setPassword("NewPassword");
         newUser.setPassword(this.passwordEncoder.encode(newUser.getPassword()));
         userService.save(newUser);
-
-        // Verify that userRepository.save was called with the correct user
         verify(userRepository).save(newUser);
     }
 

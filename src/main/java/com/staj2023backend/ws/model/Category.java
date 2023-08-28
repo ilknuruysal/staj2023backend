@@ -3,10 +3,14 @@ package com.staj2023backend.ws.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 //Lombok kutuphanesi annotationu
 @Data
+@AllArgsConstructor
 //Database'de CATEGORY tablosu oluşturmak için kullanılan annotation
 @Entity
 public class Category {
@@ -16,12 +20,9 @@ public class Category {
 //  diger variableler columnlar
     @GeneratedValue
     private Long id;
+    @NotBlank
     private String categoryName;
 
-    public Category(Long id, String categoryName) {
-        this.id = id;
-        this.categoryName = categoryName;
-    }
 
     public Category() {
 

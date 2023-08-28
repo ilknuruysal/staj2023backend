@@ -3,6 +3,7 @@ package com.staj2023backend.ws.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -19,10 +20,15 @@ public class Product {
 //  diger variableler columnlar
     @GeneratedValue
     private Long id;
+    @NotBlank
     private String productName;
+    @NotBlank
     private Long productCategoryID;
+    @NotBlank
     private BigDecimal productPrice;
+    @NotBlank
     private String productColor;
+    @NotBlank
     private Long productStock;
     @Override
     public String toString() {

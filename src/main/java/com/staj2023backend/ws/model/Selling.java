@@ -4,6 +4,7 @@ package com.staj2023backend.ws.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -19,8 +20,10 @@ public class Selling {
 //  diger variableler columnlar
     @GeneratedValue
     private Long id;
+    @NotBlank
     private Long productID;
     private Long costumerID;
+    @NotBlank
     private Long numberOfProduct;
 
 

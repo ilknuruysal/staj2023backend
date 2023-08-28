@@ -28,7 +28,7 @@ public class SellingController {
         this.productService = productService;
     }
     // Yeni bir satış kaydı oluşturan HTTP POST isteğine yanıt verir.
-    @PostMapping("/selling")
+    @PostMapping("api/orders")
     public ResponseEntity<Selling> createOrder(@RequestBody Selling selling) {
         System.out.println(selling);
         ProductID result = new ProductID(selling.toString());
@@ -46,10 +46,32 @@ public class SellingController {
         sellingService.save(selling);
         return ResponseEntity.ok(selling);
     }
+
+//    @PostMapping("api/orders")
+//    public ResponseEntity<Selling> createOrder(@RequestBody Selling selling) {
+//        System.out.println(selling);
+//        // Verilen ürün ID'si ile mevcut ürünü bulur.
+//        Optional<Product> existingProduct = productService.findById(selling.getProductID());
+//
+//        if (existingProduct.isPresent()) {
+//            Product productToUpdate = existingProduct.get();
+//            // Ürün stok miktarını satılan ürün adedine göre düşürür.
+//            productToUpdate.setProductStock(productToUpdate.getProductStock() - selling.getNumberOfProduct());
+//            // Product güncelleme, stock durumu değişimi
+//            productService.save(productToUpdate);
+//        }
+//
+//        // Satış kaydı ve 200 OK
+//        sellingService.save(selling);
+//        return ResponseEntity.ok(selling);
+//    }
+
     // Tüm selling kayıtlarını listeleyen HTTP GET request
-    @GetMapping("/selling")
+    @GetMapping("api/orders")
     public List<Selling> getAllSelling() {
         return sellingService.findAll();
     }
+
+
 
 }

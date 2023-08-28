@@ -3,6 +3,7 @@ package com.staj2023backend.ws.service;
 import com.staj2023backend.ws.model.Users;
 import com.staj2023backend.ws.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -25,12 +26,20 @@ public class UserService {
 
 //Kullanıcının şifresi database'de yalın şekilde duruyor
 //password Encoder ile password encode edilerek databasade tutuluyor
+
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
+
     public void save(Users user) {
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 
         userRepository.save(user);
 
     }
+
     public List<Users> findAll(){
         return userRepository.findAll();
     }

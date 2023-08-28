@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 import java.util.UUID;
@@ -30,28 +31,29 @@ public class ProductController {
 
     // Tüm ürünleri listeleyen HTTP GET request
 
-    @GetMapping("/product")
+    @GetMapping("api/products")
     public List<Product> getAllProducts() {
         return productService.findAll();
     }
 
     // Belirli bir kategorideki urunleri listeler
-    @GetMapping("/category/product/{ProductCategoryID}")
+    @GetMapping("/api/products/byCategory/{ProductCategoryID}")
     public List<Product> getProductByCategory(@PathVariable Long ProductCategoryID) {
-        List<Product> product = productService.findAll();
-        // Belirli bir kategorideki ürünleri filtreler
-        for(int i = 0; i < product.size(); i++) {
-            if (product.get(i).getProductCategoryID()==(ProductCategoryID)) {
-                continue;
-            } else {
-                product.remove(i);
+        List<Product> products = productService.findAll();
+        List<Product> filteredProducts = new ArrayList<>();
+
+        for (Product product : products) {
+            if (product.getProductCategoryID().equals(ProductCategoryID)) {
+                filteredProducts.add(product);
             }
         }
-        return product;
+
+        return filteredProducts;
     }
 
+
     // Yeni product oluşturan HTTP POST request
-    @PostMapping("/product")
+    @PostMapping("api/products")
     public ResponseEntity<ProductID> createProduct(@RequestBody Product product) {
         System.out.println(product);
         ProductID result = new ProductID(UUID.randomUUID().toString());
@@ -63,8 +65,8 @@ public class ProductController {
     }
 
 
-// Belirli bir ürünü id'ye göre getiren HTTP GET isteğine yanıt verir.
-    @GetMapping("/product/{id}")
+ //Belirli bir ürünü id'ye göre getiren HTTP GET isteğine yanıt verir.
+    @GetMapping("api/products/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Optional<Product> product = productService.findById(id);
 //Mevcut ise Repository'e kayıt ve 200 OK degilse 404 NOT FOUND
@@ -78,7 +80,7 @@ public class ProductController {
 
 
 //id ve guncellenen product ile Product Update etme
-    @PatchMapping("/product/{id}")
+    @PutMapping("api/products/{id}")
     public ResponseEntity<Product> updateProductById(@PathVariable Long id, @RequestBody Product updatedProduct) {
         Optional<Product> existingProduct = productService.findById(id);
 //mevcut ise tüm variableleri güncelle 200OK degil ise 404 NOT FOUND
@@ -99,7 +101,7 @@ public class ProductController {
     }
 
     //Id ile delete request atarak service ve repository üzerinden product silme
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("api/products/{id}")
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
         Optional<Product> productToDelete = productService.findById(id);
 //Product mevcut ise 200 OK degil ise 404 NOT FOUND

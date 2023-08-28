@@ -75,14 +75,6 @@ public class ProductServiceTest {
 
         assertEquals(Optional.empty(), result);
     }
-    //duzenleme gerekli
-//    @Test
-//    public void testDeleteProduct() {
-//        Product product = new Product(1L, "Product 1", 1L, BigDecimal.valueOf(100), "Red", 10L);
-//        productService.delete(product);
-//
-//        verify(productRepository).delete(product);
-//    }
 
     @Test
     public void testDeleteExistingProduct() {
@@ -98,7 +90,5 @@ public class ProductServiceTest {
         // Verify that productRepository.delete was called with the correct product
         verify(productRepository, times(1)).delete(existingProduct);
     }
-
-
 
 }
