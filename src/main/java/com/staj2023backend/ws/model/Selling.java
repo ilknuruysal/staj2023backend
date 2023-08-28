@@ -20,10 +20,9 @@ public class Selling {
 //  diger variableler columnlar
     @GeneratedValue
     private Long id;
-    @NotBlank
+
     private Long productID;
     private Long costumerID;
-    @NotBlank
     private Long numberOfProduct;
 
 

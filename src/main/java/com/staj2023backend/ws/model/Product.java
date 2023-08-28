@@ -22,13 +22,12 @@ public class Product {
     private Long id;
     @NotBlank
     private String productName;
-    @NotBlank
+
     private Long productCategoryID;
-    @NotBlank
     private BigDecimal productPrice;
     @NotBlank
     private String productColor;
-    @NotBlank
+
     private Long productStock;
     @Override
     public String toString() {
