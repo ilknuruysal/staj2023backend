@@ -1,10 +1,12 @@
 package com.staj2023backend.ws.controller;
 
 import com.staj2023backend.ws.model.Category;
+import com.staj2023backend.ws.model.SoldProduct;
 import com.staj2023backend.ws.service.CategoryService;
 import com.staj2023backend.ws.model.Product;
 import com.staj2023backend.ws.service.ProductService;
 import com.staj2023backend.ws.model.ProductID;
+import com.staj2023backend.ws.service.SoldProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,8 +27,12 @@ public class ProductController {
     ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    SoldProductService soldProductService;
+
+    @Autowired
+    public ProductController(ProductService productService , SoldProductService soldProductService) {
         this.productService =  productService;
+        this.soldProductService = soldProductService;
     }
 
     // Tüm ürünleri listeleyen HTTP GET request
@@ -106,6 +112,16 @@ public class ProductController {
         Optional<Product> productToDelete = productService.findById(id);
 //Product mevcut ise 200 OK degil ise 404 NOT FOUND
         if (productToDelete.isPresent()) {
+            List<SoldProduct> soldProducts = soldProductService.findByProductId(id);
+            //Add an if statement to check if this product has been sold
+            int i = 0;
+            for (SoldProduct soldProduct : soldProducts) {
+                soldProductService.delete(soldProducts.get(i));
+                i++;
+            }
+
+
+
             productService.delete(productToDelete.get());
             return ResponseEntity.ok().build();
         } else {

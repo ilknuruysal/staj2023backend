@@ -1,6 +1,7 @@
 package com.staj2023backend.ws.controller;
 
 import com.staj2023backend.ws.model.Product;
+import com.staj2023backend.ws.model.SoldProduct;
 import com.staj2023backend.ws.service.ProductService;
 import com.staj2023backend.ws.model.ProductID;
 import com.staj2023backend.ws.model.Selling;
@@ -28,43 +29,53 @@ public class SellingController {
         this.productService = productService;
     }
     // Yeni bir satış kaydı oluşturan HTTP POST isteğine yanıt verir.
-    @PostMapping("api/orders")
-    public ResponseEntity<Selling> createOrder(@RequestBody Selling selling) {
-        System.out.println(selling);
-        ProductID result = new ProductID(selling.toString());
-        // Verilen ürün ID'si ile mevcut ürünü bulur.
-        Optional<Product> existingProduct = productService.findById(selling.getProductID());
-
-        if (existingProduct.isPresent()) {
-            Product productToUpdate = existingProduct.get();
-// Ürün stok miktarını satılan ürün adedine göre düşürür.
-            productToUpdate.setProductStock(productToUpdate.getProductStock()-selling.getNumberOfProduct());
-//Product guncelleme, stock durumu degisimi
-            productService.save(productToUpdate);
-        }
-// Satıs kaydı ve 200 OK
-        sellingService.save(selling);
-        return ResponseEntity.ok(selling);
-    }
-
 //    @PostMapping("api/orders")
 //    public ResponseEntity<Selling> createOrder(@RequestBody Selling selling) {
 //        System.out.println(selling);
+//        ProductID result = new ProductID(selling.toString());
 //        // Verilen ürün ID'si ile mevcut ürünü bulur.
 //        Optional<Product> existingProduct = productService.findById(selling.getProductID());
 //
 //        if (existingProduct.isPresent()) {
 //            Product productToUpdate = existingProduct.get();
-//            // Ürün stok miktarını satılan ürün adedine göre düşürür.
-//            productToUpdate.setProductStock(productToUpdate.getProductStock() - selling.getNumberOfProduct());
-//            // Product güncelleme, stock durumu değişimi
+//// Ürün stok miktarını satılan ürün adedine göre düşürür.
+//            productToUpdate.setProductStock(productToUpdate.getProductStock()-selling.getNumberOfProduct());
+////Product guncelleme, stock durumu degisimi
 //            productService.save(productToUpdate);
 //        }
-//
-//        // Satış kaydı ve 200 OK
+//// Satıs kaydı ve 200 OK
 //        sellingService.save(selling);
 //        return ResponseEntity.ok(selling);
 //    }
+
+
+    @PostMapping("api/orders")
+    public ResponseEntity<Selling> createOrder(@RequestBody Selling selling) {
+        System.out.println(selling);
+
+        // Iterate through the list of sold products in the Selling object
+        for (SoldProduct soldProduct : selling.getSoldProducts()) {
+            // Find the existing product by its ID
+            Optional<Product> existingProduct = productService.findById(soldProduct.getProduct().getId());
+
+            if (existingProduct.isPresent()) {
+                Product productToUpdate = existingProduct.get();
+                // Update the product stock based on the quantity sold
+                productToUpdate.setProductStock(productToUpdate.getProductStock() - soldProduct.getNumberOfProduct());
+                // Save the updated product
+                productService.save(productToUpdate);
+            }
+        }
+
+        // Save the order (Selling entity)
+        sellingService.save(selling);
+
+        return ResponseEntity.ok(selling);
+    }
+
+
+
+
 
     // Tüm selling kayıtlarını listeleyen HTTP GET request
     @GetMapping("api/orders")

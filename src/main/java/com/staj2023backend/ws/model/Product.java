@@ -3,10 +3,12 @@ package com.staj2023backend.ws.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 //Lombok kutuphanesi annotationu
@@ -29,6 +31,9 @@ public class Product {
     private String productColor;
 
     private Long productStock;
+//add this line to frontend it engelliyor for frontend to fetch the data
+//    @OneToMany(mappedBy = "product")
+//    private List<SoldProduct> soldProducts;
     @Override
     public String toString() {
         return "Product{" +

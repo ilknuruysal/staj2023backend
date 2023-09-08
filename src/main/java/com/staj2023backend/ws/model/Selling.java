@@ -6,8 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import jakarta.persistence.*;
+import java.util.List;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 //Lombok kutuphanesi annotationu
 @Data
 //Database'de SELLING tablosu oluşturmak için kullanılan annotation
@@ -21,13 +26,9 @@ public class Selling {
     @GeneratedValue
     private Long id;
 
-    private Long productID;
-    private Long costumerID;
-    private Long numberOfProduct;
-
-
-
-
-
+    //private Long productID;
+    @OneToMany(mappedBy = "selling")
+    private List<SoldProduct> soldProducts;
+   // private Long costumerID;
 
 }
